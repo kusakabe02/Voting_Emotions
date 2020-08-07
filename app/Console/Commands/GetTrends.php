@@ -55,12 +55,12 @@ class GetTrends extends Command
         $request = $connection->OAuthRequest("https://api.twitter.com/1.1/trends/place.json","GET",array("id"=>"23424856"));
         $obj =  json_decode($request,true);
 
-        //file_put_contents("debug.json",$request);
+        //現在のAPIの仕様だと、この値はゼロ
+        $trend_get_suffix=0;
+        
+        foreach($obj[$trend_get_suffix]['trends'] as $key => $trend_name){
 
-        $save_trend = new Trend;
-
-
-        foreach($obj[0]['trends'] as $key => $trend_name){
+           $save_trend = new Trend;
 
            $save_trend->name = $trend_name['name'];
            $save_trend->url =$trend_name['url'];
@@ -71,6 +71,8 @@ class GetTrends extends Command
            $save_trend->save();
 
         }
+
+
 
 
 

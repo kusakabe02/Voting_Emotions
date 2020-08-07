@@ -26,6 +26,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+
+      //毎時0分に、6時間おきに実行
+      $schedule->command('trends:get')->everyFiveMinutes();
+      //->cron('0 */6 * * *');
     }
 
     /**

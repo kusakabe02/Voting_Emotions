@@ -13,6 +13,8 @@ class VetrendController extends Controller
       //DBからトレンドを取得
       $trends = Trend::all();
 
+
+
       //viewに渡す
       return view('trend/index',compact('trends'));
     }

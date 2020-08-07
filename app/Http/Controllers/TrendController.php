@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Trend;
 use App\User_trend;
@@ -13,14 +14,16 @@ class TrendController extends Controller
     //投票可能トレンド全件表示
     public function index()
       {
-        //DBからトレンドを取得
-        $trends = Trend::orderBy('id','asc')->get();
-        //投票状況を渡す
+        //DBからトレンドを取得し、サブクエリ化(toSql)
+        $trends = Trend::
+        orderBy('id','desc')
+        ->limit(50)
+        ->toSql();
 
-//        $trends = Trend::all();
+        $trends = DB::table(DB::raw('('.$trends.')AS Trends1'))
+        ->orderBy('id','asc')->get();
+        //表示するトレンドは最新50件
 
-        //viewに渡す
-        //return view('trend/index',compact('trends','user_trends'));
         return view('trend/index',compact('trends'));
       }
 
