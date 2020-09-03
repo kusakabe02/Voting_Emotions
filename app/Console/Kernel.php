@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+Use DB;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -25,11 +26,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
 
       //毎時0分に、6時間おきに実行
-      $schedule->command('trends:get')->everyFiveMinutes();
-      //->cron('0 */6 * * *');
+      $schedule->command('trends:get')->cron('* * * * *');
+      //$schedule->command('trends:get')->dailyAt('00:00');
+      //$schedule->command('trends:get')->twiceDaily(0,11);
     }
 
     /**

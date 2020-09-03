@@ -46,7 +46,7 @@ class GetTrends extends Command
      *
      * @return int
      */
-    public function handle()
+    public static function handle()
     {
       // 設定
        $config = config('twitter');
@@ -57,7 +57,7 @@ class GetTrends extends Command
 
         //現在のAPIの仕様だと、この値はゼロ
         $trend_get_suffix=0;
-        
+
         foreach($obj[$trend_get_suffix]['trends'] as $key => $trend_name){
 
            $save_trend = new Trend;

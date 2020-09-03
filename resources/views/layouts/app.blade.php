@@ -17,7 +17,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
@@ -36,11 +36,11 @@
                 <!-- center -->
                 <div class="collapse navbar-collapse justify-content-center">
                   <ul class="navbar-nav">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                       <a class="nav-link" href="/trend">投票可能なトレンド一覧</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/oldtrend">投票終了トレンド一覧</a>
+                        <a class="nav-link" href="/oldtrend">日別トレンド一覧</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="/users">ユーザ情報</a>

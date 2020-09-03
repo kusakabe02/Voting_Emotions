@@ -68,6 +68,14 @@
                                 </button>
                             </div>
                         </div>
+                        {{--
+                          9/1 実装しきれなかった部分
+                        <div class="row">
+                    <div class="col-md-12 text-center">
+                        <a href="{{ route('login.twitter') }}"><i class="fab fa-twitter">Twitterでログイン</i></a>
+                    </div>
+                </div>
+                        --}}
                     </form>
                 </div>
             </div>

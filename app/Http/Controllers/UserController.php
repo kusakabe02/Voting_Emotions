@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\UpdatePasswordRequest;
+use App\Http\Requests\UpdateUserData;
+
 
 class UserController extends Controller
 {
@@ -75,9 +78,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserData $request, User $user)
     {
-        //PW変更は未実装
+        //PW変更は別途実装
         $user->name = $request->name;
         $user->email = $request->mail;
         $user->save();
@@ -94,5 +97,20 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    //パスワード変更
+
+    public function editPassword(){
+      return view('users.password_edit');
+    }
+
+    public function updatePassword(UpdatePasswordRequest $request){
+      $auth = \Auth::user();
+      $auth->password = bcrypt($request->get('new-password'));
+      $auth->save();
+
+      return redirect()->back()->with('update_success','パスワード変更が正常に終了しました。');
+
     }
 }
