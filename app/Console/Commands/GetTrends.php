@@ -56,9 +56,9 @@ class GetTrends extends Command
         $obj =  json_decode($request,true);
 
         //現在のAPIの仕様だと、この値はゼロ
-        $trend_get_suffix=0;
+        //$trend_get_suffix=0;
 
-        foreach($obj[$trend_get_suffix]['trends'] as $key => $trend_name){
+        foreach($obj[0]['trends'] as $key => $trend_name){
 
            $save_trend = new Trend;
 
