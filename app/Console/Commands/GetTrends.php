@@ -2,12 +2,13 @@
 
 namespace App\Console\Commands;
 
+
 //composer読み込み
 require "vendor/autoload.php";
 use Abraham\TwitterOAuth\TwitterOAuth;
 use Illuminate\Console\Command;
 use App\Console\Commands\Storage;
-use \App\Trend;
+use \App\trend;
 
 class GetTrends extends Command
 {
@@ -60,7 +61,7 @@ class GetTrends extends Command
 
         foreach($obj[$trend_get_suffix]['trends'] as $key => $trend_name){
 
-           $save_trend = new \App\Trend();
+           $save_trend = new \App\trend();
 
            $save_trend->name = $trend_name['name'];
            $save_trend->url =$trend_name['url'];
