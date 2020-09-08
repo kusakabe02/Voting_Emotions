@@ -60,7 +60,7 @@ class GetTrends extends Command
 
         foreach($obj[$trend_get_suffix]['trends'] as $key => $trend_name){
 
-           $save_trend = new Trend;
+           $save_trend = new trend;
 
            $save_trend->name = $trend_name['name'];
            $save_trend->url =$trend_name['url'];
