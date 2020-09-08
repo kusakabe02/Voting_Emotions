@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Trend;
-use App\User_trend;
+use App\trend;
+use App\user_trend;
 
 class TrendController extends Controller
 {
@@ -17,7 +17,7 @@ class TrendController extends Controller
         //DBからトレンドを取得し、サブクエリ化(toSql)
         //キャッシュ
 
-        $trends = Trend::
+        $trends = trend::
         orderBy('id','desc')
         ->sharedLock()
         ->limit(50)
@@ -30,83 +30,7 @@ class TrendController extends Controller
         return view('trend/index',compact('trends'));
       }
 
-    //トレンド登録？？
-
-    //happyへ投票
-    public function happy_voting(Request $request,$id)
-    {
-      //ユーザトレンドInsertする準備
-      $user_id = Auth::id();
-      $user_trend = new User_trend();
-      //投票＋１
-      Trend::where('id',$id)
-      ->sharedLock()
-      ->increment('sum_votes_happy');
-      //1度投票したトレンドには投票させないようにフラグを立てる
-      $user_trend->create([
-        'trend_id'=>$id,
-        'user_id'=>$user_id,
-        'flag'=>1
-      ]);
-      return redirect("/trend");
-    }
-
-    //angryへ投票
-    public function angry_voting(Request $request,$id)
-    {
-      //ユーザトレンドInsertする準備
-      $user_id = Auth::id();
-      $user_trend = new User_trend();
-      //投票＋１
-      Trend::where('id',$id)
-      ->sharedLock()
-      ->increment('sum_votes_angry');
-      //1度投票したトレンドには投票させないようにフラグを立てる
-      $user_trend->create([
-        'trend_id'=>$id,
-        'user_id'=>$user_id,
-        'flag'=>2
-      ]);
-      return redirect("/trend");
-    }
-
-    //blueへ投票
-    public function blue_voting(Request $request,$id)
-    {
-      //ユーザトレンドInsertする準備
-      $user_id = Auth::id();
-      $user_trend = new User_trend();
-      //投票＋１
-      Trend::where('id',$id)
-      ->sharedLock()
-      ->increment('sum_votes_blue');
-      //1度投票したトレンドには投票させないようにフラグを立てる
-      $user_trend->create([
-        'trend_id'=>$id,
-        'user_id'=>$user_id,
-        'flag'=>3
-      ]);
-      return redirect("/trend");
-    }
-
-    //funへ投票
-    public function fun_voting(Request $request,$id)
-    {
-      //ユーザトレンドInsertする準備
-      $user_id = Auth::id();
-      $user_trend = new User_trend();
-      //投票＋１
-      Trend::where('id',$id)
-      ->sharedLock()
-      ->increment('sum_votes_fun');
-      //1度投票したトレンドには投票させないようにフラグを立てる
-      $user_trend->create([
-        'trend_id'=>$id,
-        'user_id'=>$user_id,
-        'flag'=>4
-      ]);
-      return redirect("/trend");
-    }
+//ラジオボタンで投票
     public function Radio_voting(Request $request){
       $debugs = $request->request;
       $happycnt=0;
@@ -127,7 +51,7 @@ class TrendController extends Controller
 //文字列によって処理を分ける
 
          if("happy"==$votes[0]){
-           Trend::where('id',$votes[1])
+           trend::where('id',$votes[1])
            ->sharedLock()
            ->increment('sum_votes_happy');
 
@@ -140,7 +64,7 @@ class TrendController extends Controller
          }
 
          if("angry"==$votes[0]){
-           Trend::where('id',$votes[1])
+           trend::where('id',$votes[1])
            ->sharedLock()
            ->increment('sum_votes_angry');
            $user_trend->create([
@@ -152,7 +76,7 @@ class TrendController extends Controller
          }
 
          if("blue"==$votes[0]){
-           Trend::where('id',$votes[1])
+           trend::where('id',$votes[1])
            ->sharedLock()
            ->increment('sum_votes_blue');
            $user_trend->create([
@@ -163,7 +87,7 @@ class TrendController extends Controller
          }
 
          if("fun"==$votes[0]){
-           Trend::where('id',$votes[1])
+           trend::where('id',$votes[1])
            ->sharedLock()
            ->increment('sum_votes_fun');
            $user_trend->create([
